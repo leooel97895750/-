@@ -1,14 +1,14 @@
 var mysql = require('mysql');
 var pool = mysql.createPool({
-  host : '127.0.0.1',
-  user : 'leooel97895750',
-  password : '9789575leooel0',
-  database : 'tuuuna'
+  host : '?',
+  user : '?',
+  password : '?',
+  database : '?'
 });
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
-const SECRET = ':)9789^-^leooel;';
+const SECRET = '?';
 //測試用
 router.get('/api/gettoken', function(req, res, next) {
 
