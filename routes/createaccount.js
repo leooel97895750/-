@@ -12,20 +12,20 @@ let jwt = require('jsonwebtoken');
 const secret = process.env.SECRET;
 const sqlregex = /[;-\s\n\b'/"!`#}!{$&})(=+*|]/;
 
-//測試用
-router.get('/api/getdata', function(req, res, next) {
+//從信箱的驗證信啟用，資料庫中產生帳號
+router.get('/api/createaccount', function(req, res, next) {
 
-    jwt.verify(req.headers['token'], secret, function(err, decoded){
+    jwt.verify(req.query.token, secret, function(err, decoded){
         if(err) res.send('authDenied');
         else
         {
-            console.log(decoded);
             pool.getConnection(function(err, connection){
                 if(err) throw err;
-                querystr = "select * from test_table";
+                querystr = "call sp_register('" +decoded.gmail+ "','" +decoded.mail_hash+ "','" +decoded.pwd_hash+ "','" +decoded.name+ "')";
                 connection.query(querystr, function(err, result){
                     if(err) throw err;
-                    res.send(result);
+                    if(result[0][0].alreadyExist != undefined) {res.send('<script>alert("帳號已經存在了");document.location.href="https://www.tuuuna.com";</script>');}
+                    else {res.send('<script>alert("帳號成功開通!");document.location.href="https://www.tuuuna.com";</script>');}
                     connection.release();
                 })
             });

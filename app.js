@@ -1,16 +1,20 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('static-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+let express = require('express');
+let path = require('path');
+let favicon = require('static-favicon');
+let logger = require('morgan');
+let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var getdataRouter = require('./routes/getdata');
-var gettokenRouter = require('./routes/gettoken');
+let routes = require('./routes/index');
+let getdataRouter = require('./routes/getdata');
+let gettokenRouter = require('./routes/gettoken');
+let getmailhashRouter = require('./routes/getmailhash');
+let sendmailRouter = require('./routes/sendmail');
+let createaccountRouter = require('./routes/createaccount');
+let loginRouter = require('./routes/login');
+let getmemberRouter = require('./routes/getmember');
 
-var app = express();
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,13 +28,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/', getdataRouter);
 app.use('/', gettokenRouter);
+app.use('/', getmailhashRouter);
+app.use('/', sendmailRouter);
+app.use('/', createaccountRouter);
+app.use('/', loginRouter);
+app.use('/', getmemberRouter);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
