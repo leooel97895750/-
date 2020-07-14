@@ -103,6 +103,8 @@ input {
   width: 250px;
   padding-left: 15px;
   background-color: white;
+  border-radius:5px;
+  -webkit-border-radius: 5px;
 }
 #member-box ul{
   list-style-type: none;
