@@ -1,11 +1,11 @@
 //透過key值搜尋cookie中的value
 
 function parseCookie() {
-    var cookieObj = {};
-    var cookieAry = document.cookie.split(';');
-    var cookie;
+    let cookieObj = {};
+    let cookieAry = document.cookie.split(';');
+    let cookie;
     
-    for (var i=0, l=cookieAry.length; i<l; ++i) {
+    for (let i=0, l=cookieAry.length; i<l; ++i) {
         cookie = jQuery.trim(cookieAry[i]);
         cookie = cookie.split('=');
         cookieObj[cookie[0]] = cookie[1];
@@ -14,7 +14,7 @@ function parseCookie() {
 }
 
 function getCookieByName(name) {
-    var value = parseCookie()[name];
+    let value = parseCookie()[name];
     if (value) {
         value = decodeURIComponent(value);
     }

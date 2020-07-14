@@ -5,9 +5,15 @@ let jwt = require('jsonwebtoken');
 const secret = process.env.SECRET;
 const sqlregex = /[;-\s\n\b'/"!`#}!{$&})(=+*|]/;
 let nodemailer = require('nodemailer');
+let rateLimit = require('express-rate-limit');
+const limiter = rateLimit({
+    windowMs: 5 * 60 * 1000, // 限制時間
+    max: 3, // 限制請求數量
+    message: '註冊太多次了，5分鐘後再試試'
+})
 
 //傳入使用者gmail, 寄帳號驗證信給使用者
-router.get('/api/sendmail', function(req, res, next) {
+router.get('/api/sendmail', limiter, function(req, res, next) {
 
     //api參數regex檢查
     const p1 = req.query.gmail;
@@ -43,10 +49,10 @@ router.get('/api/sendmail', function(req, res, next) {
         //發送信件方法
         transporter.sendMail(options, function(error, info){
             if(error){
-                res.send('fail');
+                res.send('mail fail');
                 console.log('nodemailer錯誤: ', error);
             }else{
-                res.send('success');
+                res.send('mail success');
                 console.log('nodemailer訊息發送: ' + info.response);
             }
         });

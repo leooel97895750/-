@@ -36,8 +36,8 @@ router.get('/api/getmember', function(req, res, next) {
             }
             else
             {
-                res.send('fail');
-                console.log('sqlregex fail');
+                res.send('sqlregex fail');
+                console.log('getmember: sqlregex fail');
             } 
         }
     });

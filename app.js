@@ -4,10 +4,8 @@ let favicon = require('static-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
+let helmet = require('helmet');
 
-let routes = require('./routes/index');
-let getdataRouter = require('./routes/getdata');
-let gettokenRouter = require('./routes/gettoken');
 let getmailhashRouter = require('./routes/getmailhash');
 let sendmailRouter = require('./routes/sendmail');
 let createaccountRouter = require('./routes/createaccount');
@@ -15,6 +13,7 @@ let loginRouter = require('./routes/login');
 let getmemberRouter = require('./routes/getmember');
 
 let app = express();
+app.use(helmet());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,9 +26,6 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/', getdataRouter);
-app.use('/', gettokenRouter);
 app.use('/', getmailhashRouter);
 app.use('/', sendmailRouter);
 app.use('/', createaccountRouter);

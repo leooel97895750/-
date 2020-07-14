@@ -11,9 +11,15 @@ let router = express.Router();
 let jwt = require('jsonwebtoken');
 const secret = process.env.SECRET;
 const sqlregex = /[;-\s\n\b'/"!`#}!{$&})(=+*|]/;
+let rateLimit = require('express-rate-limit');
+const limiter = rateLimit({
+    windowMs: 5 * 60 * 1000, // 限制時間
+    max: 5, // 限制請求數量
+    message: '登入太多次了，5分鐘後再試試'
+})
 
 //傳入mailhash, pwdhash，登入帳號，回傳jwt
-router.get('/api/login', function(req, res, next) {
+router.get('/api/login', limiter, function(req, res, next) {
 
     pool.getConnection(function(err, connection){
         if(err) throw err;
@@ -25,7 +31,7 @@ router.get('/api/login', function(req, res, next) {
             querystr = "select CID from `member` where Mail_hash='"+p1+"' and Pwd='"+p2+"'";
             connection.query(querystr, function(err, result){
                 if(err) throw err;
-                if(result[0] == undefined) res.send('fail');
+                if(result[0] == undefined) res.send('login fail');
                 else
                 {
                     const token = jwt.sign({'mycid': result[0].CID}, secret, { expiresIn: '1 day' });

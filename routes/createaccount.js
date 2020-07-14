@@ -19,16 +19,29 @@ router.get('/api/createaccount', function(req, res, next) {
         if(err) res.send('authDenied');
         else
         {
-            pool.getConnection(function(err, connection){
-                if(err) throw err;
-                querystr = "call sp_register('" +decoded.gmail+ "','" +decoded.mail_hash+ "','" +decoded.pwd_hash+ "','" +decoded.name+ "')";
-                connection.query(querystr, function(err, result){
+            let p1 = decoded.gmail;
+            let p2 = decoded.mail_hash;
+            let p3 = decoded.pwd_hash;
+            let p4 = decoded.name;
+            if(sqlregex.test(p1) == false && sqlregex.test(p2) == false && sqlregex.test(p3) == false && sqlregex.test(p4) == false)
+            {
+                pool.getConnection(function(err, connection){
                     if(err) throw err;
-                    if(result[0][0].alreadyExist != undefined) {res.send('<script>alert("帳號已經存在了");document.location.href="https://www.tuuuna.com";</script>');}
-                    else {res.send('<script>alert("帳號成功開通!");document.location.href="https://www.tuuuna.com";</script>');}
-                    connection.release();
-                })
-            });
+                    querystr = "call sp_register('" +p1+ "','" +p2+ "','" +p3+ "','" +p4+ "')";
+                    connection.query(querystr, function(err, result){
+                        if(err) throw err;
+                        let resstr = '<script>alert("帳號成功開通!");document.location.href="https://www.tuuuna.com";</script>';
+                        if(result[0][0].alreadyExist != undefined) {res.send(resstr);}
+                        else {res.send(resstr);}
+                        connection.release();
+                    })
+                });
+            }
+            else
+            {
+                res.send('你的資料中包含特殊字元，因此無法開通');
+                console.log('createaccount: sqlregex fail');
+            }
         }
     });
 });
