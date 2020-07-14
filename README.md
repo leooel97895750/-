@@ -3,3 +3,4 @@
 
 歐付寶sdk:
 https://github.com/o-pay/Payment_Node.js
+教學: https://ithelp.ithome.com.tw/articles/10197489
