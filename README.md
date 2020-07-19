@@ -1,6 +1,4 @@
 # webQuickStartFramework
-已完成jwt驗證、帳號系統、 資料庫api系統，用於不同情境下的快速開發
+已完成jwt安全驗證、帳號系統、信箱驗證、圖庫上傳、資料庫api規格設計、cookie暫存，用於不同情境下的快速開發
 
-歐付寶sdk:
-https://github.com/o-pay/Payment_Node.js
-教學: https://ithelp.ithome.com.tw/articles/10197489
+
