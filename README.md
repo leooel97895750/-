@@ -1,6 +1,21 @@
 # webQuickStartFramework
 已完成jwt安全驗證、帳號系統、信箱驗證、圖庫上傳、資料庫api規格設計、cookie暫存，用於不同情境下的快速開發
 
+## 安全性措施
+api需jwt token驗證
+
+api參數會經過regex檢查
+
+密碼由前端加密傳送
+
+帳號由gmail開通
+
+使用helmet套件
+
+api使用express-rate-limit套件禁止一定時間內同ip重複存取
+
+由detonv套件統一管理隱密資訊
+
 ## javascripts
 * api.js
 
