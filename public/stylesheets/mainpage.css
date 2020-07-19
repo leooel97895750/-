@@ -40,6 +40,8 @@ input {
   top: 10px;
   height: 50px;
   width: 50px;
+  border-radius:50%;
+  -webkit-border-radius: 50%;
 }
 #login-box {
   position: absolute;
@@ -117,4 +119,21 @@ input {
 #member-box ul li:hover{
   color:white;
   background-color: #4cc381;
+}
+#uploadimg-box{
+  display: none;
+}
+#uploadimg-button{
+  background-color: #4cc381;
+  color: white;
+  width: fit-content;
+  margin: 5px;
+  margin-left: 7%;
+  padding: 5px;
+  border-radius:5px;
+  -webkit-border-radius: 5px;
+}
+#uploadimg-button:hover{
+  background-color: #1c9351;
+  color: white;
 }

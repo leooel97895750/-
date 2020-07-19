@@ -11,6 +11,7 @@ let sendmailRouter = require('./routes/sendmail');
 let createaccountRouter = require('./routes/createaccount');
 let loginRouter = require('./routes/login');
 let getmemberRouter = require('./routes/getmember');
+let updatememberimgRouter = require('./routes/updatememberimg');
 
 let app = express();
 app.use(helmet());
@@ -31,6 +32,7 @@ app.use('/', sendmailRouter);
 app.use('/', createaccountRouter);
 app.use('/', loginRouter);
 app.use('/', getmemberRouter);
+app.use('/', updatememberimgRouter);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

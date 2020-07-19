@@ -10,10 +10,10 @@ let express = require('express');
 let router = express.Router();
 let jwt = require('jsonwebtoken');
 const secret = process.env.SECRET;
-const sqlregex = /[;-\s\n\b'/"!`#}!{$&})(=+*|]/;
+const sqlregex = /[;-\s\n\b'"!`#}!{$&})(=+*|]/;
 
-//輸入CID 輸出member table資料
-router.get('/api/getmember', function(req, res, next) {
+//存入使用者頭像圖片id
+router.get('/api/updatememberimg', function(req, res, next) {
 
     //jwt驗證(避免無權限者使用api)
     jwt.verify(req.headers['token'], secret, function(err, decoded){
@@ -22,11 +22,13 @@ router.get('/api/getmember', function(req, res, next) {
         {
             //參數驗證(避免sql injection)
             let p1 = decoded.mymid;
-            if(sqlregex.test(p1) == false)
+            let p2 = req.query.imgurl;
+            let p3 = req.query.imgid;
+            if(sqlregex.test(p1) == false && sqlregex.test(p2) == false && sqlregex.test(p3) == false)
             {
                 pool.getConnection(function(err, connection){
                     if(err) throw err;
-                    querystr = "select MID, Name, CDes, Img, Mail, Since, LastModifyDT, Sex, Phone, Birthday, Address, FriendsNum, CID from `member` where MID="+p1;
+                    querystr = "update `member` set Img = '"+p2+"', Imgid = '"+p3+"' where MID="+p1;
                     connection.query(querystr, function(err, result){
                         if(err) throw err;
                         res.send(result);

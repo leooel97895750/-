@@ -28,13 +28,13 @@ router.get('/api/login', limiter, function(req, res, next) {
         const p2 = req.query.pwdhash;
         if(sqlregex.test(p1) == false && sqlregex.test(p2) == false)
         {
-            querystr = "select CID from `member` where Mail_hash='"+p1+"' and Pwd='"+p2+"'";
+            querystr = "select CID, MID from `member` where Mail_hash='"+p1+"' and Pwd='"+p2+"'";
             connection.query(querystr, function(err, result){
                 if(err) throw err;
                 if(result[0] == undefined) res.send('login fail');
                 else
                 {
-                    const token = jwt.sign({'mycid': result[0].CID}, secret, { expiresIn: '1 day' });
+                    const token = jwt.sign({'mycid': result[0].CID, 'mymid': result[0].MID}, secret, { expiresIn: '1 day' });
                     res.send(token);
                 }
                 connection.release();

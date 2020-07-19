@@ -11,6 +11,7 @@
         <script src="javascripts/cookie.js"></script>
         <script src="javascripts/sha.js"></script>
         <script src="javascripts/login.js"></script>
+        <script src="javascripts/imgur.js"></script>
         <script>
             window.onload = function() {
                 getmemberData();
@@ -51,6 +52,11 @@
             <p id="member-mail"></p>
             <hr>
             <ul>
+                <li onclick="uploadMemberImg()"><img src="images/uploadimg.png" title="uploadimg" style="position:relative;top:6px;height:22px;width:22px;opacity: 0.7;"> 頭貼上傳</li>
+                <div id="uploadimg-box">
+                    <input id="uploadimg-input" type="file">
+                    <div id="uploadimg-button" onclick="uploadImg('uploadimg-input'), uploadMemberImg()">上傳</div>
+                </div>
                 <li><img src="images/history.png" title="history" style="position:relative;top:6px;height:22px;width:22px;opacity: 0.7;"> 瀏覽紀錄</li>
                 <li><img src="images/setting.png" title="setting" style="position:relative;top:6px;height:22px;width:22px;opacity: 0.7;"> 設定</li>
                 <li><img src="images/question.png" title="question" style="position:relative;top:6px;height:22px;width:22px;opacity: 0.7;"> 說明</li>
@@ -58,12 +64,13 @@
                 <li onclick="logout()"><img src="images/logout.png" title="logout" style="position:relative;top:6px;height:22px;width:22px;opacity: 0.7;"> 登出</li>
             </ul>
         </div>
+        
         <!--暗屏遮罩-->
         <div id="dark-mask" style="z-index: 10;"></div>
         <!--內容-->
         <div style="z-index: 9;">
             <h1>Tuuuna!!!</h1>
-            <input id="name" type="text">
+            
         </div> 
 
     </body>
