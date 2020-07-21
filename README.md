@@ -25,6 +25,10 @@ api使用express-rate-limit套件禁止一定時間內同ip重複存取
 
 透過key值搜尋cookie中的value
 
+* croppie.min.js
+
+圖片裁切工具，將圖片修改成想要的型態並轉為base64傳至imgur圖庫中使用
+
 * imgur.js
 
 上傳圖片到imgur，並將產生的圖片id存入資料庫
